@@ -1,10 +1,9 @@
-// triangle svg uses polygon with 3 sides (google it)
-
 const inquirer = require("inquirer");
-// const Shape = require("./lib/shapes");
 const Circle = require("./lib/circle");
 const { join } = require("path");
 const { writeFile } = require("fs/promises");
+const Triangle = require("./lib/triangle");
+const Square = require("./lib/square");
 
 inquirer
   .prompt([
@@ -46,12 +45,24 @@ inquirer
       circle.setColor(answers.shapeColor);
       console.log(circle);
       return { render: circle.render(), shapeType: "circle" };
+    } else if (answers.shape === "triangle") {
+      console.log("you chose triangle");
+      const triangle = new Triangle(answers.characters, answers.textColor);
+      triangle.setColor(answers.shapeColor);
+      console.log(triangle);
+      return { render: triangle.render(), shapeType: "triangle" };
+    } else if (answers.shape === "square") {
+      console.log("you chose square");
+      const square = new Square(answers.characters, answers.textColor);
+      square.setColor(answers.shapeColor);
+      console.log(square);
+      return { render: square.render(), shapeType: "square" };
     }
   })
   .then((shape) => {
-    return writeFile(`./examples/${shape.shapeType}.html`, shape.render);
+    return writeFile(`./examples/${shape.shapeType}.svg`, shape.render);
   })
-  .then(() => console.log(`Created the file`))
+  .then(() => console.log(`Generated logo.svg`))
   .catch((err) => {
     console.log(err);
     console.log("Oops. Something went wrong.");

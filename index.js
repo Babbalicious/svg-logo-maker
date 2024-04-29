@@ -60,7 +60,7 @@ inquirer
     }
   })
   .then((shape) => {
-    return writeFile(`./examples/${shape.shapeType}.svg`, shape.render);
+    return writeFile(`./examples/logo.svg`, shape.render);
   })
   .then(() => console.log(`Generated logo.svg`))
   .catch((err) => {
